@@ -1,26 +1,162 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0f;
+  --foreground: #f0f0ff;
+  --surface: #111118;
+  --surface-2: #1a1a24;
+  --border: #2a2a3a;
+  --border-hover: #3a3a50;
+  --primary: #7c3aff;
+  --primary-light: #9b60ff;
+  --primary-dark: #5b1fd8;
+  --accent: #ff3a8c;
+  --accent-light: #ff6aaa;
+  --neon: #00e5ff;
+  --text-muted: #8888aa;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --error: #ef4444;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-neon: var(--neon);
+  --color-muted: var(--text-muted);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --font-sans: "Inter", system-ui, sans-serif;
+  --radius-sm: 0.5rem;
+  --radius: 0.75rem;
+  --radius-lg: 1rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #0a0a0f;
+  color: #f0f0ff;
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100dvh;
+  margin: 0;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #111118; }
+::-webkit-scrollbar-thumb { background: #2a2a3a; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3a3a50; }
+
+::selection { background: rgba(124, 58, 255, 0.3); color: #f0f0ff; }
+:focus-visible { outline: 2px solid #7c3aff; outline-offset: 2px; }
+
+/* Utilities */
+.gradient-text {
+  background: linear-gradient(135deg, #9b60ff, #ff3a8c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-neon {
+  background: linear-gradient(135deg, #7c3aff, #00e5ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass {
+  background: rgba(17, 17, 24, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(42, 42, 58, 0.9);
+}
+
+.glass-card {
+  background: rgba(26, 26, 36, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(42, 42, 58, 0.8);
+  border-radius: 0.75rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.glass-card:hover {
+  border-color: rgba(124, 58, 255, 0.3);
+  box-shadow: 0 0 20px rgba(124, 58, 255, 0.1);
+}
+
+.glow-primary { box-shadow: 0 0 24px rgba(124, 58, 255, 0.5); }
+.glow-accent { box-shadow: 0 0 24px rgba(255, 58, 140, 0.5); }
+.glow-sm { box-shadow: 0 0 12px rgba(124, 58, 255, 0.3); }
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animated-gradient {
+  background: linear-gradient(-45deg, #0a0a0f, #12082a, #0d0d1a, #1a0820);
+  background-size: 400% 400%;
+  animation: gradient-shift 12s ease infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.float { animation: float 4s ease-in-out infinite; }
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 12px rgba(124, 58, 255, 0.3); }
+  50% { box-shadow: 0 0 24px rgba(124, 58, 255, 0.7); }
+}
+
+.pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
+/* Input base */
+input, textarea, select {
+  background: rgba(26, 26, 36, 0.8);
+  border: 1px solid #2a2a3a;
+  color: #f0f0ff;
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.875rem;
+  font-size: 0.9rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+  outline: none;
+  font-family: inherit;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #7c3aff;
+  box-shadow: 0 0 0 3px rgba(124, 58, 255, 0.15);
+}
+
+input::placeholder, textarea::placeholder {
+  color: #4a4a6a;
+}
+
+select option {
+  background: #1a1a24;
+  color: #f0f0ff;
 }
